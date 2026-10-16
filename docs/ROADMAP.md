@@ -13,11 +13,13 @@ This roadmap describes intended work, not completed features. Mark items complet
 - [ ] Boot an unmodified baseline and record build steps.
 - [ ] Prototype an iX launcher/shell and visual identity.
 - [ ] Validate portrait, landscape, and large-display layouts.
+- [ ] Prototype capability-based device-mode detection with a user override.
 - [ ] Add smoke tests and release evidence.
 
 ## Phase 2 — Adaptive experience
 - [ ] Specify phone, tablet, and desktop interactions.
 - [ ] Prototype keyboard, mouse, and task/window switching.
+- [ ] Test keyboard-only, mouse-only, combined input, touchscreen, and stylus paths where available.
 - [ ] Review accessibility, privacy, and permission UX.
 - [ ] Measure memory use and startup performance.
 
@@ -25,6 +27,12 @@ This roadmap describes intended work, not completed features. Mark items complet
 - [ ] Define a versioned protocol and threat model.
 - [ ] Implement explicit pairing and revocation.
 - [ ] Prototype user-approved file transfer with integrity checks.
+- [ ] Define iX Share transport selection and versioned protocol.
+- [ ] Prototype local Wi-Fi sharing and evaluate Wi-Fi Direct.
+- [ ] Evaluate Bluetooth transfer and accessory battery reporting without inventing unavailable readings.
+- [ ] Evaluate NFC tap-to-pair where supported.
+- [ ] Research AirDrop and Quick Share interoperability constraints; do not claim unsupported native compatibility.
+- [ ] Evaluate HDMI-CEC only on targets with an exposed compatible hardware/software stack.
 - [ ] Test unauthorized peers.
 - [ ] Add clipboard sync as opt-in.
 - [ ] Evaluate notifications, mirroring, remote input, and handoff separately.
