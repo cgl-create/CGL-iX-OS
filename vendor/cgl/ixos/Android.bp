@@ -1,0 +1,10 @@
+android_app {
+    name: "IxOSLauncher",
+    srcs: ["launcher/src/**/*.java"],
+    manifest: "launcher/AndroidManifest.xml",
+    resource_dirs: ["launcher/res"],
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    product_specific: true,
+}
