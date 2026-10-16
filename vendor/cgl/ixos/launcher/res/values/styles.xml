@@ -1,0 +1,10 @@
+<resources>
+    <style name="IxOSTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">@color/ixos_yellow</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/ixos_background</item>
+        <item name="android:navigationBarColor">@color/ixos_background</item>
+        <item name="android:windowBackground">@color/ixos_background</item>
+    </style>
+</resources>
