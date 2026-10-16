@@ -9,7 +9,8 @@ iX OS explores a consistent experience across selected phones, tablets, PCs, lap
 ## Principles
 - **Android foundation:** Android Open Source Project (AOSP), not Debian.
 - **Device-specific builds:** separate product and hardware configurations for each target.
-- **Adaptive interface:** layouts and input behavior for phones, tablets, and desktop-sized displays.
+- **Adaptive interface:** layouts and input behavior for phones, tablets, and desktop-sized displays, with capability-based input detection and user override.
+- **Connectivity:** planned iX Share transports and optional NFC, Bluetooth, Wi-Fi Direct, and HDMI-CEC support only where hardware and platform APIs allow.
 - **Interoperability:** HyperLink clients for other operating systems where technically possible.
 - **Security:** preserve Android app sandboxing, SELinux enforcement, verified boot where supported, and explicit consent for sensitive actions.
 - **Honest compatibility:** bootloader restrictions, drivers, firmware, and device maintenance determine support.
@@ -28,6 +29,8 @@ These are goals, not a promise that every device can run iX OS.
 
 ## Repository map
 - `docs/ARCHITECTURE.md` — system layers and design boundaries.
+- `docs/ADAPTIVE-DEVICE.md` — form-factor detection, input adaptation, and validation.
+- `docs/CONNECTIVITY.md` — iX Share, Bluetooth battery reporting, NFC, Wi-Fi Direct, AirDrop/Quick Share limits, and HDMI-CEC.
 - `docs/ROADMAP.md` — staged development plan.
 - `devices/README.md` — device compatibility and bring-up checklist.
 - `hyperlink/README.md` — CGL+ HyperLink concept and security requirements.
