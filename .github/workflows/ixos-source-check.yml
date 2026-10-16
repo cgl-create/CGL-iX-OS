@@ -1,0 +1,34 @@
+name: iX OS source checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - os/ixos-first-system-integration
+
+jobs:
+  source-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required AOSP product files
+        run: |
+          test -f vendor/cgl/ixos/products/AndroidProducts.mk
+          test -f vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
+          test -f vendor/cgl/ixos/Android.bp
+          test -f vendor/cgl/ixos/launcher/AndroidManifest.xml
+          test -f vendor/cgl/ixos/launcher/src/com/cgl/ixos/launcher/IxHomeActivity.java
+          grep -q 'PRODUCT_NAME := ixos_cf_x86_64_phone' vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
+          grep -q 'IxOSLauncher' vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
+          grep -q 'com.cgl.ixos.launcher' vendor/cgl/ixos/launcher/AndroidManifest.xml
+          bash -n scripts/build-cuttlefish.sh
+      - name: Check XML syntax
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          for path in Path("vendor/cgl/ixos/launcher").rglob("*.xml"):
+              ET.parse(path)
+              print(f"OK {path}")
+          PY
