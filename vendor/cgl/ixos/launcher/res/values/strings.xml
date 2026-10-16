@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">iX OS</string>
+    <string name="tagline">A CGL+ operating system</string>
+    <string name="apps_label">APPS</string>
+    <string name="settings_label">SYSTEM SETTINGS</string>
+    <string name="about_label">ABOUT iX OS</string>
+</resources>
