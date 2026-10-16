@@ -1,0 +1,49 @@
+# Android/AOSP build output
+out/
+out_*/
+*.img
+*.img.xz
+*.img.gz
+*.zip
+*.tar
+*.tar.gz
+*.tar.xz
+*.br
+*.dtbo
+*.bin
+*.elf
+*.so
+*.o
+*.a
+*.class
+*.dex
+*.apk
+*.ap_
+*.aar
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.pem
+*.key
+service-account*.json
+firebase-adminsdk*.json
+credentials.json
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+.cache/
