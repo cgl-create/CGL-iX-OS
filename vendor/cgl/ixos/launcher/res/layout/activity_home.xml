@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/ixos_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="28dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CGL+"
+            android:textColor="@color/ixos_yellow"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="iX OS"
+            android:textColor="@color/ixos_text"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tagline"
+            android:textColor="@color/ixos_muted"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Your space"
+            android:textColor="@color/ixos_text"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="2"
+            android:useDefaultMargins="true">
+            <Button
+                android:id="@+id/apps_button"
+                android:layout_width="0dp"
+                android:layout_height="112dp"
+                android:layout_columnWeight="1"
+                android:backgroundTint="@color/ixos_surface"
+                android:text="@string/apps_label"
+                android:textColor="@color/ixos_yellow" />
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="0dp"
+                android:layout_height="112dp"
+                android:layout_columnWeight="1"
+                android:backgroundTint="@color/ixos_surface"
+                android:text="@string/settings_label"
+                android:textColor="@color/ixos_text" />
+        </GridLayout>
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="18dp"
+            android:background="@color/ixos_surface"
+            android:textColor="@color/ixos_muted"
+            android:textSize="14sp"
+            android:text="iX OS development build" />
+        <Button
+            android:id="@+id/about_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/ixos_yellow"
+            android:text="@string/about_label"
+            android:textColor="@color/ixos_background" />
+    </LinearLayout>
+</ScrollView>

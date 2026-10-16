@@ -1,0 +1,7 @@
+<resources>
+    <color name="ixos_yellow">#F2C94C</color>
+    <color name="ixos_background">#101114</color>
+    <color name="ixos_surface">#1B1D22</color>
+    <color name="ixos_text">#F5F5F5</color>
+    <color name="ixos_muted">#A7A9B0</color>
+</resources>

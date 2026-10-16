@@ -1,0 +1,6 @@
+iX OS by CGL+
+Product: ixos_cf_x86_64_phone
+Base: Android Open Source Project (AOSP) Cuttlefish x86_64 phone
+Status: development build
+Brand color: #f2c94c
+This metadata identifies a development image; it is not a device compatibility certification.
