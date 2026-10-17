@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="12dp">
             <Button
                 android:id="@+id/apps_button"
                 android:layout_width="0dp"
@@ -52,6 +52,62 @@
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/ixos_surface"
                 android:text="@string/settings_label"
+                android:textColor="@color/ixos_text" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/notifications_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/ixos_surface"
+            android:text="NOTIFICATION CENTER  •  SHARE"
+            android:textColor="@color/ixos_yellow" />
+        <LinearLayout
+            android:id="@+id/notification_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:background="@color/ixos_surface"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notification Center"
+                android:textColor="@color/ixos_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="You're all caught up. System notifications will appear in the Android notification shade when supported by the system build."
+                android:textColor="@color/ixos_muted"
+                android:textSize="13sp" />
+            <Button
+                android:id="@+id/share_ixos_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/ixos_yellow"
+                android:text="Share iX OS"
+                android:textColor="@color/ixos_background" />
+            <Button
+                android:id="@+id/share_cgl_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:backgroundTint="#303238"
+                android:text="Share CGL+ HyperLink"
+                android:textColor="@color/ixos_text" />
+            <Button
+                android:id="@+id/share_status_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:backgroundTint="#303238"
+                android:text="Share current status"
                 android:textColor="@color/ixos_text" />
         </LinearLayout>
         <TextView
