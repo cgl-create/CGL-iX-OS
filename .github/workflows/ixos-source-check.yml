@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - os/ixos-first-system-integration
+      - fix/aosp-product-namespace
 
 jobs:
   source-check:
@@ -20,6 +21,7 @@ jobs:
           test -f vendor/cgl/ixos/launcher/AndroidManifest.xml
           test -f vendor/cgl/ixos/launcher/src/com/cgl/ixos/launcher/IxHomeActivity.java
           grep -q 'PRODUCT_NAME := ixos_cf_x86_64_phone' vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
+          grep -q 'PRODUCT_SOONG_NAMESPACES += vendor/cgl/ixos' vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
           grep -q 'IxOSLauncher' vendor/cgl/ixos/products/ixos_cf_x86_64_phone.mk
           grep -q 'com.cgl.ixos.launcher' vendor/cgl/ixos/launcher/AndroidManifest.xml
           bash -n scripts/build-cuttlefish.sh
