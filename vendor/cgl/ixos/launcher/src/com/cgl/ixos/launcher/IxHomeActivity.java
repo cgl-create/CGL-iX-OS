@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public final class IxHomeActivity extends Activity {
     private TextView status;
+    private LinearLayout notificationPanel;
 
     private static final AppShortcut[] SHORTCUTS = {
         new AppShortcut("Phone", "☎", "#2FAD69", "tel:"),
@@ -42,6 +43,20 @@ public final class IxHomeActivity extends Activity {
         status = findViewById(R.id.status_text);
         status.setText("iX OS • AOSP development build");
 
+        notificationPanel = findViewById(R.id.notification_panel);
+        Button notifications = findViewById(R.id.notifications_button);
+        notifications.setOnClickListener(v -> {
+            notificationPanel.setVisibility(
+                    notificationPanel.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        });
+
+        findViewById(R.id.share_ixos_button).setOnClickListener(v ->
+                shareText("iX OS by CGL+", "Explore iX OS by CGL+ — an AOSP-based OS project."));
+        findViewById(R.id.share_cgl_button).setOnClickListener(v ->
+                shareText("CGL+ HyperLink", "https://crazygamelabs.co.uk/"));
+        findViewById(R.id.share_status_button).setOnClickListener(v ->
+                shareText("iX OS status", status.getText().toString()));
+
         GridLayout grid = findViewById(R.id.app_grid);
         for (AppShortcut shortcut : SHORTCUTS) {
             grid.addView(createShortcut(shortcut));
@@ -60,6 +75,14 @@ public final class IxHomeActivity extends Activity {
                 "iX OS by CGL+\nAOSP Cuttlefish x86_64 development target\n" +
                 "Build: development\nBrand: #F2C94C\n" +
                 "Google shortcuts open web services; Google Mobile Services is not bundled."));
+    }
+
+    private void shareText(String title, String text) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_SUBJECT, title);
+        share.putExtra(Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(share, "Share with"));
     }
 
     private View createShortcut(AppShortcut shortcut) {
