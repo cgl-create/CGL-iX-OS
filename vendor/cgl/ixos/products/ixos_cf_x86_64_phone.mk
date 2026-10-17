@@ -7,6 +7,9 @@ PRODUCT_BRAND := CGL+
 PRODUCT_MODEL := iX OS Virtual Device
 PRODUCT_MANUFACTURER := CGL+
 
+# Expose the vendor Soong namespace so PRODUCT_PACKAGES can resolve IxOSLauncher.
+PRODUCT_SOONG_NAMESPACES += vendor/cgl/ixos
+
 PRODUCT_PACKAGES += \
     IxOSLauncher
 
