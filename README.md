@@ -4,7 +4,7 @@
 
 iX OS explores a consistent experience across selected phones, tablets, PCs, laptops, and Raspberry Pi-class devices, with **CGL+ HyperLink** providing cross-device connectivity.
 
-> **Status: Initial AOSP product scaffold added.** The repository now contains an initial Cuttlefish x86_64 product definition and local manifest. It has not yet been validated by a successful AOSP build, and there is no bootable iX OS image yet. No physical device is currently certified as supported.
+> **Status: Initial Raspberry Pi 3 B+ Android product scaffold added.** The repository now contains an iX OS product overlay based on the legacy community LineageOS 17.1 / Android 10 Pi 3 board port. It has not yet been built or boot-tested; no bootable iX OS image exists yet.
 
 ## Principles
 - **Android foundation:** Android Open Source Project (AOSP), not Debian.
@@ -20,7 +20,7 @@ iX OS explores a consistent experience across selected phones, tablets, PCs, lap
 
 | Target | Status | Notes |
 |---|---|---|
-| AOSP virtual device / Cuttlefish | First system-image target planned | Validate the real AOSP build and boot process before physical ports. |
+| Raspberry Pi 3 B+ | Primary hardware target; early bring-up | Uses a legacy community LineageOS 17.1 / Android 10 board port as the initial hardware reference. Not yet built or tested. |
 | ARM64 Android phones/tablets | Research | Each model needs its own compatibility assessment. |
 | x86-64 PCs/laptops | Research | Requires suitable platform, graphics, input, and driver support. |
 | Raspberry Pi 3 B+ | Research; high risk | 1 GB RAM and board support constraints. |
@@ -29,7 +29,8 @@ iX OS explores a consistent experience across selected phones, tablets, PCs, lap
 These are goals, not a promise that every device can run iX OS.
 
 ## Repository map
-- `device/cgl/ixos/` — initial iX OS Cuttlefish x86_64 product definition.
+- `device/cgl/ixos/` — initial iX OS product definitions, including the Raspberry Pi 3 B+ overlay.
+- `devices/rpi3/README.md` — selected Android board port, source references, and current limitations.
 - `build/aosp/local_manifest.xml` — local manifest for including this product in an AOSP checkout.
 - `docs/AOSP-FOUNDATION.md` — real OS build milestones, target strategy, and bring-up requirements.
 - `docs/ARCHITECTURE.md` — system layers and design boundaries.
@@ -41,11 +42,11 @@ These are goals, not a promise that every device can run iX OS.
 - `CONTRIBUTING.md` — engineering guidelines.
 
 ## Development strategy
-1. Select a maintained AOSP release and a supported virtual-device target.
-2. Build and boot a baseline AOSP-derived system image in Cuttlefish.
-3. Record a reproducible build process and automated validation.
-4. Integrate iX system components into AOSP; the existing Java shell app is only a UI prototype and does not count as an OS build.
-5. Evaluate physical hardware targets individually before attempting ports.
+1. Bring up the Raspberry Pi 3 B+ using the documented community LineageOS 17.1 / Android 10 board support as a legacy hardware reference.
+2. Reconstruct and document a complete, reproducible source manifest including the matching kernel and required vendor components.
+3. Build and boot a baseline image before integrating iX components.
+4. Integrate iX system components and branding into the Android system; the existing Java shell app alone does not count as an OS build.
+5. Validate boot, graphics, networking, USB storage, and memory behavior on the physical Pi.
 6. Implement HyperLink separately from privileged OS components, with a defined security boundary.
 
 The full AOSP source tree and generated build outputs should not be committed to this repository. Follow the selected AOSP branch's official build instructions and preserve upstream licensing notices.
