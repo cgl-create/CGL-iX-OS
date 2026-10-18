@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="cgl-github" fetch="https://github.com/cgl-create/" />
+  <remote name="lineage-rpi" fetch="https://github.com/lineage-rpi/" />
+  <project name="CGL-iX-OS" path="device/cgl/ixos" remote="cgl-github" revision="main" />
+  <project name="android_device_brcm_rpi3" path="device/brcm/rpi3" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_device_brcm_rpi-common" path="device/brcm/rpi-common" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_kernel_brcm_rpi" path="kernel/brcm/rpi-4.19" remote="lineage-rpi" revision="lineage-17.1-4.19" />
+  <project name="proprietary_vendor_brcm" path="vendor/brcm" remote="lineage-rpi" revision="lineage-17.1" />
+  <remove-project name="platform/external/drm_hwcomposer" />
+  <remove-project name="platform/external/libdrm" />
+  <remove-project name="platform/external/mesa3d" />
+  <remove-project name="platform/external/minigbm" />
+  <project name="android_external_drm_hwcomposer" path="external/drm_hwcomposer" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_external_gbm_gralloc" path="external/gbm_gralloc" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_external_libdrm" path="external/libdrm" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_external_mesa3d" path="external/mesa3d" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_external_minigbm" path="external/minigbm" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_external_ir-keytable" path="external/ir-keytable" remote="lineage-rpi" revision="lineage-17.1" />
+  <project name="android_hardware_gps" path="hardware/gps" remote="lineage-rpi" revision="lineage-17.1" />
+</manifest>
