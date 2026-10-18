@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- Community Pi 3 device support is for the legacy LineageOS 17.1 tree. -->
+  <remote name="lineage-rpi" fetch="https://github.com/lineage-rpi/" />
+  <project name="android_device_brcm_rpi3"
+           path="device/brcm/rpi3"
+           remote="lineage-rpi"
+           revision="lineage-17.1" />
+  <project name="android_device_brcm_rpi-common"
+           path="device/brcm/rpi-common"
+           remote="lineage-rpi"
+           revision="lineage-17.1" />
+</manifest>
