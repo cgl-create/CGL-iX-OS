@@ -4,7 +4,7 @@
 
 iX OS explores a consistent experience across selected phones, tablets, PCs, laptops, and Raspberry Pi-class devices, with **CGL+ HyperLink** providing cross-device connectivity.
 
-> **Status: AOSP foundation planning.** This repository does not yet contain a bootable iX OS image or a complete AOSP source tree. No physical device is currently certified as supported.
+> **Status: Initial AOSP product scaffold added.** The repository now contains an initial Cuttlefish x86_64 product definition and local manifest. It has not yet been validated by a successful AOSP build, and there is no bootable iX OS image yet. No physical device is currently certified as supported.
 
 ## Principles
 - **Android foundation:** Android Open Source Project (AOSP), not Debian.
@@ -29,6 +29,8 @@ iX OS explores a consistent experience across selected phones, tablets, PCs, lap
 These are goals, not a promise that every device can run iX OS.
 
 ## Repository map
+- `device/cgl/ixos/` — initial iX OS Cuttlefish x86_64 product definition.
+- `build/aosp/local_manifest.xml` — local manifest for including this product in an AOSP checkout.
 - `docs/AOSP-FOUNDATION.md` — real OS build milestones, target strategy, and bring-up requirements.
 - `docs/ARCHITECTURE.md` — system layers and design boundaries.
 - `docs/ADAPTIVE-DEVICE.md` — form-factor detection, input adaptation, and validation.
