@@ -1,0 +1,23 @@
+// Copyright (C) 2026 CGL+
+// SPDX-License-Identifier: Apache-2.0
+
+android_app {
+    name: "IXLauncher",
+    manifest: "AndroidManifest.xml",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+
+    platform_apis: true,
+    min_sdk_version: "29",
+    target_sdk_version: "current",
+    certificate: "platform",
+    system_ext_specific: true,
+
+    // Prefer the iX shell over the generic AOSP home applications in this product.
+    overrides: [
+        "Launcher3QuickStep",
+        "Launcher3",
+        "Home",
+        "Launcher2",
+    ],
+}
