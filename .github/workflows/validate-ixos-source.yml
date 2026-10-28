@@ -1,0 +1,33 @@
+name: iX OS source validation
+
+on:
+  push:
+    paths:
+      - "apps/IXLauncher/**"
+      - "device/cgl/ixos/**"
+      - "build/aosp/**"
+      - "scripts/validate-ixos-source.py"
+      - ".github/workflows/validate-ixos-source.yml"
+  pull_request:
+    paths:
+      - "apps/IXLauncher/**"
+      - "device/cgl/ixos/**"
+      - "build/aosp/**"
+      - "scripts/validate-ixos-source.py"
+      - ".github/workflows/validate-ixos-source.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  source-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate iX OS product wiring
+        run: python3 scripts/validate-ixos-source.py
