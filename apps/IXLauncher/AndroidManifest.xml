@@ -22,7 +22,6 @@
 
         <activity
             android:name=".IXLauncherActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize"
             android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
