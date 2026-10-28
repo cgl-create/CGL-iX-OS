@@ -1,61 +1,115 @@
-# iX OS
+# CGL+ iX OS
 
-**An Android-based adaptive operating-system research project by CGL+.**
+**CGL+ iX OS is an Android/AOSP operating-system project.** The objective is a
+real Android system image with iX-specific system components—not a website, a
+Linux desktop theme, or an app-only deliverable.
 
-iX OS explores a consistent experience across selected phones, tablets, PCs, laptops, and Raspberry Pi-class devices, with **CGL+ HyperLink** providing cross-device connectivity.
+> **Current status:** The repository now contains an AOSP Cuttlefish x86_64
+> product definition and an in-tree Android HOME shell called `IXLauncher`.
+> Source changes are committed, but no iX OS image has yet been built or
+> boot-tested. Do not treat this as a released or bootable OS.
 
-> **Status: Initial Raspberry Pi 3 B+ Android product scaffold added.** The repository now contains an iX OS product overlay based on the legacy community LineageOS 17.1 / Android 10 Pi 3 board port. It has not yet been built or boot-tested; no bootable iX OS image exists yet.
+## Direction
 
-## Principles
-- **Android foundation:** Android Open Source Project (AOSP), not Debian.
-- **System, not just an app:** the goal is an AOSP-derived system image with iX components integrated into the OS.
-- **Device-specific builds:** separate product and hardware configurations for each target.
-- **Adaptive interface:** layouts and input behavior for phones, tablets, and desktop-sized displays, with capability-based input detection and user override.
-- **Connectivity:** planned iX Share transports and optional NFC, Bluetooth, Wi-Fi Direct, and HDMI-CEC support only where hardware and platform APIs allow.
-- **Interoperability:** HyperLink clients for other operating systems where technically possible.
-- **Security:** preserve Android app sandboxing, SELinux enforcement, verified boot where supported, and explicit consent for sensitive actions.
-- **Honest compatibility:** bootloader restrictions, drivers, firmware, and device maintenance determine support.
+- **Android foundation:** AOSP, not Debian.
+- **System integration:** iX components are built into a device product.
+- **CGL+ identity:** dark interface, yellow accent `#f2c94c), and original iX
+  design rather than a skin for an unrelated operating system.
+- **Adaptive UI:** phone, tablet, and desktop layouts, with connected-input
+  detection and a user override.
+- **Device-specific builds:** a separate product and hardware bring-up for
+  each supported target; a universal binary is not assumed.
+- **Security:** preserve Android app sandboxing, permissions, SELinux and
+  verified boot where the chosen target supports them.
+- **Connectivity:** CGL+ HyperLink and iX Share are planned as separate,
+  security-reviewed services; unsupported AirDrop/Quick Share compatibility
+  must not be claimed.
 
-## Intended targets
+## Current development target
 
-| Target | Status | Notes |
+The first **build-validation** target is AOSP Cuttlefish x86_64. This gives us
+a real AOSP product and virtual Android device on which to validate the build
+pipeline and system-shell integration before attempting a physical port.
+
+| Target | Role | Status |
 |---|---|---|
-| Raspberry Pi 3 B+ | Primary hardware target; early bring-up | Uses a legacy community LineageOS 17.1 / Android 10 board port as the initial hardware reference. Not yet built or tested. |
-| ARM64 Android phones/tablets | Research | Each model needs its own compatibility assessment. |
-| x86-64 PCs/laptops | Research | Requires suitable platform, graphics, input, and driver support. |
-| Raspberry Pi 3 B+ | Research; high risk | 1 GB RAM and board support constraints. |
-| Newer Raspberry Pi boards | Research | Requires board-specific validation. |
+| AOSP Cuttlefish x86_64 | First system-image build and boot validation | Product + launcher source committed; not built |
+| Raspberry Pi 3 Model B+ | Primary physical-hardware research target | Separate legacy LineageOS 17.1 / Android 10 port; not built or boot-tested |
+| ARM64 Android phones/tablets | Later device-specific ports | Research; each model needs its own compatibility assessment |
+| x86-64 PCs/laptops | Later device-specific build | Research; driver and boot support not validated |
+| Newer Raspberry Pi boards | Possible alternative physical target | Requires board-specific validation |
 
-These are goals, not a promise that every device can run iX OS.
+The Raspberry Pi 3 B+ has 1 GB RAM and its available community Android base is
+legacy and discontinued. See [Pi 3 hardware notes](devices/rpi3/README.md).
+The newer Android images available from the same community port project target
+different Raspberry Pi hardware; do not confuse those images with Pi 3 support.
+
+## First implemented component: IXLauncher
+
+`apps/IXLauncher/` is a native Android package built by the AOSP Soong build
+system and included by the iX Cuttlefish product. It provides:
+- CGL+ iX OS branding with a dark interface and yellow accents.
+- A real Android HOME activity.
+- Discovery and launching of installed Android apps.
+- Automatic phone/tablet/desktop layout selection from display width and
+  keyboard/mouse signals.
+- Manual mode override, Android Settings access, and an About screen that
+  reports actual build properties.
+
+This is only the first shell component. Notifications, quick settings, lock
+screen, complete desktop window management, HyperLink, iX Share, CGL+ Accounts,
+OTA updates and physical hardware support are **not implemented** yet.
+
+## Build the first image
+
+Read [Build the first iX OS system image](docs/BUILD-FIRST-IMAGE.md). In brief,
+the source tree must be synced from Google's `android-latest-release` manifest
+with this repository included through `build/aosp/local_manifest.xml`, then
+built using:
+
+```bash
+source build/envsetup.sh
+lunch ixos_cf_x86_64-aosp_current-userdebug
+m
+```
+
+The required AOSP checkout is large and build-intensive. A practical full
+build needs a supported Linux x86-64 build host with substantial RAM and free
+disk. An 8 GB RAM machine is not a realistic full AOSP build host. A successful
+build and actual Cuttlefish boot are still outstanding; source configuration
+alone is not proof.
 
 ## Repository map
-- `device/cgl/ixos/` — initial iX OS product definitions, including the Raspberry Pi 3 B+ overlay.
-- `devices/rpi3/README.md` — selected Android board port, source references, and current limitations.
-- `build/aosp/local_manifest.xml` — local manifest for including this product in an AOSP checkout.
-- `docs/AOSP-FOUNDATION.md` — real OS build milestones, target strategy, and bring-up requirements.
+
+- `apps/IXLauncher/` — native Android HOME shell module.
+- `device/cgl/ixos/` — iX Cuttlefish product configuration.
+- `device/cgl/ixos/rpi3/` — separate Pi 3 product overlay for legacy source.
+- `build/aosp/local_manifest.xml` — includes this repository in the AOSP tree.
+- `build/aosp/rpi3-local-manifest.xml` — Pi 3 community device-tree starting point.
+- `devices/rpi3/README.md` — Pi 3 source base and limitations.
+- `docs/AOSP-FOUNDATION.md` — AOSP foundation and milestones.
+- `docs/BUILD-FIRST-IMAGE.md` — build and validation instructions.
 - `docs/ARCHITECTURE.md` — system layers and design boundaries.
-- `docs/ADAPTIVE-DEVICE.md` — form-factor detection, input adaptation, and validation.
-- `docs/CONNECTIVITY.md` — iX Share transports and cross-device integration constraints.
+- `docs/ADAPTIVE-DEVICE.md` — adaptive layout requirements and tests.
+- `docs/CONNECTIVITY.md` — planned sharing transports and security boundaries.
 - `docs/ROADMAP.md` — staged development plan.
-- `devices/README.md` — device compatibility and bring-up checklist.
-- `hyperlink/README.md` — CGL+ HyperLink concept and security requirements.
-- `CONTRIBUTING.md` — engineering guidelines.
+- `scripts/validate-ixos-source.py` — static source wiring checks (not an OS build).
 
-## Development strategy
-1. Bring up the Raspberry Pi 3 B+ using the documented community LineageOS 17.1 / Android 10 board support as a legacy hardware reference.
-2. Reconstruct and document a complete, reproducible source manifest including the matching kernel and required vendor components.
-3. Build and boot a baseline image before integrating iX components.
-4. Integrate iX system components and branding into the Android system; the existing Java shell app alone does not count as an OS build.
-5. Validate boot, graphics, networking, USB storage, and memory behavior on the physical Pi.
-6. Implement HyperLink separately from privileged OS components, with a defined security boundary.
+## Engineering boundaries
 
-The full AOSP source tree and generated build outputs should not be committed to this repository. Follow the selected AOSP branch's official build instructions and preserve upstream licensing notices.
-
-## Linux application support
-Android uses the Linux kernel, but that does not mean arbitrary desktop Linux programs run natively. CLI tools may be explored in a contained userspace; graphical Linux apps require a separate graphics and integration plan.
-
-## Security
-Never commit passwords, access tokens, signing keys, private certificates, Firebase service-account files, or other secrets. Report vulnerabilities privately to maintainers.
+- The AOSP Cuttlefish target is not a Raspberry Pi or phone image.
+- The Pi 3 product must be built with the matching legacy LineageOS 17.1 tree;
+  it cannot be combined arbitrarily with current AOSP.
+- The full AOSP source and generated images must not be committed here.
+- Device firmware, proprietary blobs and upstream components retain their
+  own licenses.
+- Never commit passwords, access tokens, signing keys, private certificates or
+  Firebase service-account files.
+- Do not flash an image to a physical device unless it was built for that
+  exact device and a tested recovery procedure exists.
 
 ## License
-No project-wide license has been selected yet. Do not assume original code is licensed for unrestricted reuse. AOSP and other dependencies retain their own licenses.
+
+No project-wide license has been selected yet. Individual files and imported
+components retain their stated licenses. Do not assume original code is
+licensed for unrestricted reuse.
