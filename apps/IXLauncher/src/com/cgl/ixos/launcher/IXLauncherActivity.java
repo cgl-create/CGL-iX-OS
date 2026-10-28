@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.SpannableString;
@@ -76,7 +75,6 @@ public final class IXLauncherActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (appGrid != null) {
-            refreshApps();
             refreshMode();
         }
     }
