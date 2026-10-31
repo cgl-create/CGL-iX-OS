@@ -2,7 +2,8 @@
 
 **Current status:** instructions and source integration are committed, but the
 product has not yet been built or booted. These commands are a build recipe,
-not evidence of a successful build.
+not evidence of a successful build. For the automated build and Cuttlefish
+boot test, follow the [GitHub Actions runner guide](BUILD-RUNNER.md).
 
 ## Host requirements
 
@@ -27,7 +28,7 @@ manager. For Debian/Ubuntu-based hosts:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git repo python3 curl ca-certificates
+sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 ca-certificates
 ```
 
 Follow the current AOSP requirements page for the remaining host packages.
