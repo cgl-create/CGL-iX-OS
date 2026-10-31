@@ -24,6 +24,7 @@ PACKAGE_NAME="com.cgl.ixos.launcher"
 ACTIVITY_NAME="com.cgl.ixos.launcher/.IXLauncherActivity"
 CVD_ROOT="${RUNNER_TEMP:-/tmp}/ixos-cuttlefish"
 EVIDENCE_DIR="${RUNNER_TEMP:-/tmp}/ixos-evidence"
+if [[ -n "${GITHUB_OUTPUT:-}" ]]; then echo "aosp_root=$AOSP_ROOT" >> "$GITHUB_OUTPUT"; fi
 BUILD_LOG="$EVIDENCE_DIR/aosp-build.log"
 BOOT_LOG="$EVIDENCE_DIR/cuttlefish-boot.log"
 
