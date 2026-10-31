@@ -115,7 +115,7 @@ IMAGE_ZIP="$(find "$DIST_DIR" -maxdepth 1 -type f -name 'ixos_cf_x86_64-img-*.zi
 HOST_PACKAGE="$(find "$DIST_DIR" -maxdepth 1 -type f -name 'cvd-host_package.tar.gz' -print | head -n 1)"
 
 if [[ -z "$IMAGE_ZIP" || ! -f "$IMAGE_ZIP" ]]; then
-  find "$DIST_DIR" -maxdepth 1 -type f -printf '%f\\n' | sort
+  find "$DIST_DIR" -maxdepth 1 -type f -printf '%f\n' | sort
   fail "The iX OS Cuttlefish image ZIP was not found in out/dist."
 fi
 note "Built image: $IMAGE_ZIP"
@@ -146,7 +146,7 @@ ADB="$CVD_ROOT/bin/adb"
 
   booted=false
   for attempt in $(seq 1 120); do
-    value="$(timeout 15 "$ADB" shell getprop sys.boot_completed 2>/dev/null | tr -d '\\r' || true)"
+    value="$(timeout 15 "$ADB" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)"
     if [[ "$value" == "1" ]]; then
       booted=true
       break
