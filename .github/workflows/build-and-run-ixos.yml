@@ -1,0 +1,134 @@
+name: Build and run CGL+ iX OS
+
+on:
+  workflow_dispatch:
+    inputs:
+      aosp_branch:
+        description: AOSP manifest branch
+        required: true
+        default: android-latest-release
+        type: string
+      build_jobs:
+        description: Parallel AOSP build jobs (use a value suitable for the runner RAM)
+        required: true
+        default: "16"
+        type: choice
+        options:
+          - "8"
+          - "12"
+          - "16"
+          - "24"
+      sync_jobs:
+        description: Parallel Repo sync jobs
+        required: true
+        default: "8"
+        type: choice
+        options:
+          - "4"
+          - "8"
+          - "12"
+      run_cuttlefish:
+        description: Boot the image in Cuttlefish and verify IXLauncher
+        required: true
+        default: true
+        type: boolean
+      upload_images:
+        description: Upload the large image ZIP and Cuttlefish host package as workflow artifacts
+        required: true
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/IXLauncher/**"
+      - "device/cgl/ixos/**"
+      - "build/aosp/local_manifest.xml"
+      - "scripts/ci/**"
+      - "scripts/validate-ixos-source.py"
+      - ".github/workflows/build-and-run-ixos.yml"
+  pull_request:
+    paths:
+      - "apps/IXLauncher/**"
+      - "device/cgl/ixos/**"
+      - "build/aosp/local_manifest.xml"
+      - "scripts/ci/**"
+      - "scripts/validate-ixos-source.py"
+      - ".github/workflows/build-and-run-ixos.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ixos-aosp-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source-validation:
+    name: Validate iX OS source and build scripts
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Validate product and launcher wiring
+        run: python3 scripts/validate-ixos-source.py
+
+      - name: Check build script syntax
+        run: bash -n scripts/ci/build-and-run-ixos.sh
+
+      - name: Parse Android XML files
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          paths = [
+              Path("apps/IXLauncher/AndroidManifest.xml"),
+              Path("apps/IXLauncher/res/values/strings.xml"),
+              Path("build/aosp/local_manifest.xml"),
+          ]
+          for path in paths:
+              ET.parse(path)
+              print(f"Valid XML: {path}")
+          PY
+
+  build-and-run:
+    name: Build AOSP image and boot Cuttlefish
+    if: github.event_name == 'workflow_dispatch'
+    needs: source-validation
+    runs-on: [self-hosted, linux, x64, ixos-aosp]
+    timeout-minutes: 360
+    steps:
+      - name: Check out the exact iX OS commit
+        uses: actions/checkout@v4
+
+      - name: Build iX OS and optionally boot it
+        id: build
+        shell: bash
+        env:
+          AOSP_BRANCH: ${{ inputs.aosp_branch }}
+          BUILD_JOBS: ${{ inputs.build_jobs }}
+          SYNC_JOBS: ${{ inputs.sync_jobs }}
+          RUN_CUTTLEFISH: ${{ inputs.run_cuttlefish }}
+        run: bash scripts/ci/build-and-run-ixos.sh
+
+      - name: Upload boot evidence and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ixos-build-evidence-${{ github.run_number }}
+          path: ${{ runner.temp }}/ixos-evidence/
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Upload the built iX OS images
+        if: success() && inputs.upload_images
+        uses: actions/upload-artifact@v4
+        with:
+          name: ixos-cuttlefish-images-${{ github.run_number }}
+          path: |
+            ${{ steps.build.outputs.aosp_root }}/out/dist/ixos_cf_x86_64-img-*.zip
+            ${{ steps.build.outputs.aosp_root }}/out/dist/cvd-host_package.tar.gz
+          if-no-files-found: error
+          retention-days: 2
