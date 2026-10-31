@@ -29,7 +29,7 @@ Follow Google's current
 to install the host packages. The host must have the Cuttlefish base package
 installed and configured before the workflow runs.
 
-The runner account must be in the `kvm`, `cvdnetwork`, and `render` groups.
+Install the AOSP host packages listed in Google's [AOSP requirements](https://source.android.com/docs/setup/start/requirements) on the runner. The workflow also needs the Repo launcher (2.4 or newer), Git, Python 3 and unzip.\n\nThe runner account must be in the `kvm`, `cvdnetwork`, and `render` groups.
 For example, when those groups and packages are installed:
 
 ```bash
