@@ -95,7 +95,7 @@ jobs:
 
   build-and-run:
     name: Build AOSP image and boot Cuttlefish
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-ixos]'))
     needs: source-validation
     runs-on: [self-hosted, linux, x64, ixos-aosp]
     timeout-minutes: 360
