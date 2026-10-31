@@ -2,32 +2,50 @@ name: iX OS source validation
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "apps/IXLauncher/**"
       - "device/cgl/ixos/**"
       - "build/aosp/**"
+      - "scripts/ci/**"
       - "scripts/validate-ixos-source.py"
       - ".github/workflows/validate-ixos-source.yml"
+      - ".github/workflows/build-and-run-ixos.yml"
   pull_request:
     paths:
       - "apps/IXLauncher/**"
       - "device/cgl/ixos/**"
       - "build/aosp/**"
+      - "scripts/ci/**"
       - "scripts/validate-ixos-source.py"
       - ".github/workflows/validate-ixos-source.yml"
+      - ".github/workflows/build-and-run-ixos.yml"
 
 permissions:
   contents: read
 
 jobs:
   source-validation:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out source
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
       - name: Validate iX OS product wiring
         run: python3 scripts/validate-ixos-source.py
+      - name: Check AOSP build script syntax
+        run: bash -n scripts/ci/build-and-run-ixos.sh
+      - name: Validate Android XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          for path in (
+              Path("apps/IXLauncher/AndroidManifest.xml"),
+              Path("apps/IXLauncher/res/values/strings.xml"),
+              Path("build/aosp/local_manifest.xml"),
+          ):
+              ET.parse(path)
+              print(f"OK: {path}")
+          PY
