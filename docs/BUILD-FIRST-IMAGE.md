@@ -38,8 +38,7 @@ Use a case-sensitive filesystem with sufficient free space.
 ```bash
 mkdir -p ~/aosp/ixos
 cd ~/aosp/ixos
-repo init --partial-clone --no-use-superproject \
-  -b android-latest-release \
+repo init --partial-clone -b android-latest-release \
   -u https://android.googlesource.com/platform/manifest
 mkdir -p .repo/local_manifests
 curl -fsSL \
@@ -65,10 +64,11 @@ From the AOSP source root:
 ```bash
 source build/envsetup.sh
 lunch ixos_cf_x86_64-aosp_current-userdebug
-m
+m dist
 ```
 
-The product extends Google's Cuttlefish x86_64 phone configuration and adds
+`m dist` generates the image distribution package and the Cuttlefish host
+package used by the automated smoke test. The product extends Google's Cuttlefish x86_64 phone configuration and adds
 the native `IXLauncher` package. The first successful build must confirm that
 the product is recognized, Soong compiles IXLauncher, and system images are
 generated. Save the complete build log and the output of:
@@ -79,8 +79,8 @@ repo manifest -r > ixos-source-manifest.xml
 
 ## 4. Boot and verify
 
-Boot the resulting Cuttlefish image using the launch procedure documented
-for the Cuttlefish version included in the synced source tree. Verify all of
+Boot the resulting Cuttlefish image using the matching host package produced
+by `m dist`, following the Cuttlefish launch instructions for that release. Verify all of
 the following before calling this a successful OS milestone:
 
 - Android reaches the home screen without a boot loop.
