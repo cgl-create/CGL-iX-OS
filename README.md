@@ -13,7 +13,7 @@ Linux desktop theme, or an app-only deliverable.
 
 - **Android foundation:** AOSP, not Debian.
 - **System integration:** iX components are built into a device product.
-- **CGL+ identity:** dark interface, yellow accent `#f2c94c), and original iX
+- **CGL+ identity:** dark interface, yellow accent `#f2c94c`, and original iX
   design rather than a skin for an unrelated operating system.
 - **Adaptive UI:** phone, tablet, and desktop layouts, with connected-input
   detection and a user override.
@@ -62,7 +62,7 @@ OTA updates and physical hardware support are **not implemented** yet.
 
 ## Build the first image
 
-Read [Build the first iX OS system image](docs/BUILD-FIRST-IMAGE.md). In brief,
+Read [Build the first iX OS system image](docs/BUILD-FIRST-IMAGE.md) or the [GitHub Actions runner setup](docs/BUILD-RUNNER.md). In brief,
 the source tree must be synced from Google's `android-latest-release` manifest
 with this repository included through `build/aosp/local_manifest.xml`, then
 built using:
@@ -70,7 +70,7 @@ built using:
 ```bash
 source build/envsetup.sh
 lunch ixos_cf_x86_64-aosp_current-userdebug
-m
+m dist
 ```
 
 The required AOSP checkout is large and build-intensive. A practical full
@@ -88,7 +88,8 @@ alone is not proof.
 - `build/aosp/rpi3-local-manifest.xml` — Pi 3 community device-tree starting point.
 - `devices/rpi3/README.md` — Pi 3 source base and limitations.
 - `docs/AOSP-FOUNDATION.md` — AOSP foundation and milestones.
-- `docs/BUILD-FIRST-IMAGE.md` — build and validation instructions.
+- `docs/BUILD-FIRST-IMAGE.md` — manual AOSP build instructions.
+- `docs/BUILD-RUNNER.md` — self-hosted runner and automated build/run instructions.
 - `docs/ARCHITECTURE.md` — system layers and design boundaries.
 - `docs/ADAPTIVE-DEVICE.md` — adaptive layout requirements and tests.
 - `docs/CONNECTIVITY.md` — planned sharing transports and security boundaries.
