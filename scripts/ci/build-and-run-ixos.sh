@@ -60,6 +60,8 @@ command -v repo >/dev/null 2>&1 || fail "The repo launcher is missing. Install G
 command -v git >/dev/null 2>&1 || fail "git is required."
 command -v python3 >/dev/null 2>&1 || fail "python3 is required."
 command -v unzip >/dev/null 2>&1 || fail "unzip is required."
+git config --global user.name "${GIT_AUTHOR_NAME:-CGL+ iX OS CI}"
+git config --global user.email "${GIT_AUTHOR_EMAIL:-ixos-ci@users.noreply.github.com}"
 repo version
 
 if [[ "$RUN_CUTTLEFISH" == "true" ]]; then
