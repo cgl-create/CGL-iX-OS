@@ -28,7 +28,7 @@ manager. For Debian/Ubuntu-based hosts:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 ca-certificates
+sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 repo ca-certificates
 ```
 
 Follow the current AOSP requirements page for the remaining host packages.
